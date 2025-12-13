@@ -1,28 +1,68 @@
 import { useRef, useState } from "react";
 import Header from "./Header";
-import { checkValidateData } from "../utils/validate";
+import { checkValidData } from "../utils/validate";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../utils/firebase";
 
 const Login = () => {
   const [isSignInForm, setIsSignInForm] = useState(true);
   const [errors, setErrors] = useState({});
+  const [errorMessage, setErrorMessage] = useState(null);
 
   const email = useRef(null);
   const password = useRef(null);
   const name = useRef(null);
 
   const handleButtonClick = () => {
-
-    const validationResult = checkValidateData(
+    const validationResult = checkValidData(
       email.current?.value,
       password.current?.value,
       name.current?.value
     );
 
     setErrors(validationResult);
+
+    if (
+      typeof validationResult === "object" &&
+      Object.keys(validationResult).length > 0
+    )
+      return;
+
+    if (!isSignInForm) {
+      createUserWithEmailAndPassword(
+        auth,
+        email.current.value,
+        password.current.value
+      )
+        .then((userCredential) => {
+          // Signed up
+          const user = userCredential.user;
+          setErrorMessage(null)
+        })
+        .catch((error) => {
+          const errorMessage = error.message;          
+          setErrorMessage(errorMessage);
+        });
+    } else {
+      signInWithEmailAndPassword(
+        auth,
+        email.current.value,
+        password.current.value
+      )
+        .then((userCredential) => {
+          // Signed in
+          const user = userCredential.user;
+          setErrorMessage(null)
+        })
+        .catch((error) => {
+          const errorMessage = error.message;
+          setErrorMessage(errorMessage);
+        });
+    }
   };
 
   const toggleSignInForm = () => {
-    setErrors({})
+    setErrors({});
     setIsSignInForm(!isSignInForm);
   };
 
@@ -31,7 +71,7 @@ const Login = () => {
       <Header />
       <figure className="">
         <img
-          src="/public/assets/Login_BG_large.jpg"
+          src="/assets/Login_BG_large.jpg"
           alt="Login_Background"
           className="h-screen w-full"
         />
@@ -47,6 +87,7 @@ const Login = () => {
               <input
                 type="text"
                 placeholder="Name"
+                ref={name}
                 className="text-sm my-2 outline-none p-2 bg-white"
               />
 
@@ -66,9 +107,12 @@ const Login = () => {
             ref={password}
             className="text-sm my-2 outline-none p-2 bg-white"
           />
-          {errors?.password && <p className="text-red-500">{errors.password}</p>}
+          {errors?.password && (
+            <p className="text-red-500">{errors.password}</p>
+          )}
+          {errorMessage && <p className="text-red-500">{errorMessage}</p>}
           <button
-            className="bg-red-600 text-white text-xl p-1 mt-2"
+            className="bg-red-600 text-white text-xl p-1 mt-2 cursor-pointer"
             onClick={handleButtonClick}
           >
             {isSignInForm ? "Sign In" : "Sign Up"}
