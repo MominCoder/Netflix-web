@@ -1,8 +1,15 @@
 import { useRef, useState } from "react";
 import Header from "./Header";
 import { checkValidData } from "../utils/validate";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  updateProfile,
+} from "firebase/auth";
 import { auth } from "../utils/firebase";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addUser } from "../utils/userSlice";
 
 const Login = () => {
   const [isSignInForm, setIsSignInForm] = useState(true);
@@ -12,6 +19,9 @@ const Login = () => {
   const email = useRef(null);
   const password = useRef(null);
   const name = useRef(null);
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleButtonClick = () => {
     const validationResult = checkValidData(
@@ -37,11 +47,26 @@ const Login = () => {
         .then((userCredential) => {
           // Signed up
           const user = userCredential.user;
-          setErrorMessage(null)
+          setErrorMessage(null);
+
+          updateProfile(user, {
+            displayName: name.current.value,
+            photoURL: '/public/assets/user-profile-icon.jpg',
+          }).then(() => {
+            const { uid, email, displayName, photoURL } = auth.currentUser;
+            dispatch(
+              addUser({
+                uid: uid,
+                email: email,
+                displayName: displayName,
+                photoURL: photoURL || '/public/assets/user-profile-icon.jpg',
+              })
+            );
+            navigate("/browse");
+          });
         })
         .catch((error) => {
-          const errorMessage = error.message;          
-          setErrorMessage(errorMessage);
+          setErrorMessage(error.message);
         });
     } else {
       signInWithEmailAndPassword(
@@ -52,11 +77,11 @@ const Login = () => {
         .then((userCredential) => {
           // Signed in
           const user = userCredential.user;
-          setErrorMessage(null)
+          setErrorMessage(null);
+          navigate("/browse");
         })
         .catch((error) => {
-          const errorMessage = error.message;
-          setErrorMessage(errorMessage);
+          setErrorMessage(error.message);
         });
     }
   };
@@ -110,6 +135,7 @@ const Login = () => {
           {errors?.password && (
             <p className="text-red-500">{errors.password}</p>
           )}
+
           {errorMessage && <p className="text-red-500">{errorMessage}</p>}
           <button
             className="bg-red-600 text-white text-xl p-1 mt-2 cursor-pointer"
