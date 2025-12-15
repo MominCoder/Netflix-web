@@ -62,7 +62,6 @@ const Login = () => {
                 photoURL: photoURL || '/public/assets/user-profile-icon.jpg',
               })
             );
-            navigate("/browse");
           });
         })
         .catch((error) => {
@@ -78,7 +77,6 @@ const Login = () => {
           // Signed in
           const user = userCredential.user;
           setErrorMessage(null);
-          navigate("/browse");
         })
         .catch((error) => {
           setErrorMessage(error.message);
