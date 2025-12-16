@@ -1,0 +1,1 @@
+export const USER_AVATAR = '/public/assets/user-profile-icon.jpg';

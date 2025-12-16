@@ -10,6 +10,7 @@ import { auth } from "../utils/firebase";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
+import { USER_AVATAR } from "../utils/constants";
 
 const Login = () => {
   const [isSignInForm, setIsSignInForm] = useState(true);
@@ -51,7 +52,7 @@ const Login = () => {
 
           updateProfile(user, {
             displayName: name.current.value,
-            photoURL: '/public/assets/user-profile-icon.jpg',
+            photoURL: USER_AVATAR,
           }).then(() => {
             const { uid, email, displayName, photoURL } = auth.currentUser;
             dispatch(
@@ -59,7 +60,7 @@ const Login = () => {
                 uid: uid,
                 email: email,
                 displayName: displayName,
-                photoURL: photoURL || '/public/assets/user-profile-icon.jpg',
+                photoURL: photoURL,
               })
             );
           });
