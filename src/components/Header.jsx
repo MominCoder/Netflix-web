@@ -34,24 +34,24 @@ const Header = () => {
   };
 
   return (
-    <div className="container mx-auto max-w-full px-5 absolute left-0 top-0 flex justify-between items-center">
+    <div className="container mx-auto bg-gradient-to-r from-black max-w-full px-5 py-3 absolute left-0 top-0 z-50 flex justify-between items-center">
       <figure className="w-40">
         <img src="/assets/Netflix_Logo.png" alt="logo" />
       </figure>
       {user && (
         <div className="flex justify-between items-center">
           <div className="flex justify-between items-center mr-2.5">
-            <figure className="max-w-12">
+            <figure className="max-w-6">
               <img
-                src={"/public/assets/user-profile-icon.jpg"}
+                src={"/public/assets/user.png"}
                 alt={user?.displayName}
               />
             </figure>
-            <span className="pl-1">{user?.displayName?.toUpperCase()}</span>
+            <span className="pl-1 text-white font-semibold">{user?.displayName?.toUpperCase()}</span>
           </div>
 
           <button
-            className="text-white text-sm cursor-pointer bg-red-500 p-2 rounded-md"
+            className="text-white font-medium text-sm cursor-pointer bg-red-500 p-2 rounded-md"
             onClick={handleSignOut}
           >
             Sign Out
