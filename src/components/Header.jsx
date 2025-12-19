@@ -34,7 +34,7 @@ const Header = () => {
   };
 
   return (
-    <div className="absolute flex justify-between items-center w-full pr-3">
+    <div className="container mx-auto max-w-full px-5 absolute left-0 top-0 flex justify-between items-center">
       <figure className="w-40">
         <img src="/assets/Netflix_Logo.png" alt="logo" />
       </figure>
@@ -47,7 +47,7 @@ const Header = () => {
                 alt={user?.displayName}
               />
             </figure>
-            <span>{user?.displayName?.toUpperCase()}</span>
+            <span className="pl-1">{user?.displayName?.toUpperCase()}</span>
           </div>
 
           <button
