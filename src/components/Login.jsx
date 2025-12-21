@@ -7,7 +7,6 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { auth } from "../utils/firebase";
-import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
 import { USER_AVATAR } from "../utils/constants";
@@ -21,7 +20,6 @@ const Login = () => {
   const password = useRef(null);
   const name = useRef(null);
 
-  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const handleButtonClick = () => {
@@ -91,7 +89,7 @@ const Login = () => {
   };
 
   return (
-    <div className="relative ">
+    <div className="relative">
       <Header />
       <figure className="">
         <img
@@ -101,7 +99,7 @@ const Login = () => {
         />
       </figure>
 
-      <div className="bg-black/80 p-10 w-1/3 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+      <div className="bg-black/80 p-10 w-4/5 md:w-1/3 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
         <form className="flex flex-col" onSubmit={(e) => e.preventDefault()}>
           <h1 className="text-2xl mb-3 text-white">
             {isSignInForm ? "Sign In" : "Sign Up"}

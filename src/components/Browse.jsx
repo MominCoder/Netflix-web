@@ -2,7 +2,7 @@ import Header from "./Header";
 import MainContainer from "./MainContainer";
 import SecondContainer from "./SecondContainer";
 import useFetchMovies from "../hooks/useFetchMovies";
-import { addNowPlayingMovies, addPopularMovies, addTopRatedMovies, addUpcomingMovies } from "../utils/moviesSlice";
+import { addNowPlayingMovies, addTopRatedMovies, addUpcomingMovies } from "../utils/moviesSlice";
 
 const Browse = () => {
   // useNowPlayingMovies();
