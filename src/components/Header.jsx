@@ -36,7 +36,7 @@ const Header = () => {
   return (
     <div className="container mx-auto bg-gradient-to-r from-black max-w-full px-5 py-3 absolute left-0 top-0 z-50 flex justify-between items-center">
       <figure className="md:w-40 w-20">
-        <img src="/assets/Netflix_Logo.png" alt="logo" />
+        <img src="/public/assets/Netflix_Logo.png" alt="logo" />
       </figure>
       {user && (
         <div className="flex justify-between items-center">
