@@ -1,6 +1,8 @@
 import MovieCard from "./MovieCard";
 
 const MovieList = ({ title, movies }) => {
+  if(!movies) return  
+
   return (
     <div className="py-2">
       <h2 className="md:text-2xl text-white font-semibold mb-5">{title}</h2>
@@ -9,8 +11,8 @@ const MovieList = ({ title, movies }) => {
           {movies &&
             movies.map((movie) => (
               <MovieCard
-                key={movie.id}
-                posterPath={movie.poster_path}
+                key={movie?.id}
+                posterPath={movie?.poster_path}
                 title={title}
               />
             ))}
