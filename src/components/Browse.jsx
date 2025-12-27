@@ -15,17 +15,17 @@ const Browse = () => {
 
   // useNowPlayingMovies();
   useFetchMovies(
-    (store) => store.movies.popularMovies,
+    (store) => store.movies.nowPlayingMovies,
     addNowPlayingMovies,
     "now_playing"
   );
   useFetchMovies(
-    (store) => store.movies.popularMovies,
+    (store) => store.movies.upcomingMovies,
     addUpcomingMovies,
     "upcoming"
   );
   useFetchMovies(
-    (store) => store.movies.popularMovies,
+    (store) => store.movies.topRatedMovies,
     addTopRatedMovies,
     "top_rated"
   );
