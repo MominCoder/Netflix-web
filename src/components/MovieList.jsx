@@ -1,7 +1,8 @@
+import { Link } from "react-router-dom";
 import MovieCard from "./MovieCard";
 
 const MovieList = ({ title, movies }) => {
-  if(!movies) return  
+  if (!movies) return;
 
   return (
     <div className="py-2">
@@ -10,11 +11,9 @@ const MovieList = ({ title, movies }) => {
         <div className="flex gap-4">
           {movies &&
             movies.map((movie) => (
-              <MovieCard
-                key={movie?.id}
-                posterPath={movie?.poster_path}
-                title={title}
-              />
+              <Link key={movie?.id} to={"/movie/" + movie.id}>
+                <MovieCard posterPath={movie?.poster_path} title={title} />
+              </Link>
             ))}
         </div>
       </div>
