@@ -32,7 +32,7 @@ const Browse = () => {
   // useFetchMovies((store) => store.movies.popularMovies, addPopularMovies, "popular");
 
   return (
-    <div className="w-full">
+    <div className="w-full select-none">
       <div className="relative w-full">
         <Header />
       </div>

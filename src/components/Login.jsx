@@ -95,11 +95,11 @@ const Login = () => {
         <img
           src="/assets/Login_BG_large.jpg"
           alt="Login_Background"
-          className="h-screen w-full"
+          className="h-screen w-full object-cover"
         />
       </figure>
 
-      <div className="bg-black/80 p-10 w-4/5 md:w-1/3 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+      <div className="bg-black/80 p-10 w-4/5 md:w-1/2 lg:w-1/3 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
         <form className="flex flex-col" onSubmit={(e) => e.preventDefault()}>
           <h1 className="text-2xl mb-3 text-white">
             {isSignInForm ? "Sign In" : "Sign Up"}
