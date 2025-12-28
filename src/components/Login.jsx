@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Header from "./Header";
 import { checkValidData } from "../utils/validate";
 import {
@@ -7,11 +7,21 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { auth } from "../utils/firebase";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addUser } from "../utils/userSlice";
 import { USER_AVATAR } from "../utils/constants";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const user = useSelector((store) => store.user);
+  const navigate = useNavigate();
+
+  useEffect(() => {    
+    if (user) {
+      navigate("/browse");
+    }
+  }, [user]);
+
   const [isSignInForm, setIsSignInForm] = useState(true);
   const [errors, setErrors] = useState({});
   const [errorMessage, setErrorMessage] = useState(null);
