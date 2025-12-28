@@ -36,14 +36,12 @@ const Browse = () => {
       <div className="relative w-full">
         <Header />
       </div>
-      {showGptSearch ? (
-        <GptSearchBox />
-      ) : (
-        <>
-          <MainContainer />
-          <SecondContainer />
-        </>
-      )}
+      {showGptSearch && <GptSearchBox />}
+
+      <>
+        <MainContainer />
+        <SecondContainer />
+      </>
     </div>
   );
 };
